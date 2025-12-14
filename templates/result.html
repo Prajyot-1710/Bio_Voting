@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Customer List</title>
+	
+		<script type="text/javascript"> 
+        function preventBack() { 
+            window.history.forward();  
+        } 
+          
+        setTimeout("preventBack()", 0); 
+          
+        window.onunload = function () { null }; 
+    </script> 
+	
+	
+	
+    <style type="text/css">
+<!--
+.style1 {font-size: 24px}
+body {
+	background-color: #FFFFFF;
+	background-image: url();
+}
+.style2 {
+	font-size: 36px;
+	color: #0000FF;
+	font-weight: bold;
+}
+.style3 {font-size: 18px}
+.style7 {font-size: 24px; color: #3300CC; }
+.style9 {color: #993300}
+.style13 {color: #3300CC; font-size: 30px; }
+.style14 {font-size: 30px; }
+.style15 {font-size: 30px; color: #993300; }
+-->
+    </style>
+	
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+  <p align="center" class="style2">Result</p>
+  <table width="596" border="0" align="center" cellpadding="1" cellspacing="1"  >
+  <tr>
+    <td width="288" height="31" bgcolor="#FFFFFF" class="style1"><div align="center" class="style13">
+      <div align="left">Candidate Name </div>
+    </div></td>
+    <td width="143" bgcolor="#FFFFFF" class="style1"><div align="center" class="style13">
+      <div align="left">Party</div>
+    </div></td>
+    <td width="145" bgcolor="#FFFFFF" class="style7"><div align="right" class="style14">Votes</div></td>
+    </tr>
+{% for item in data %}
+  <tr>
+    <td height="41" bgcolor="#FFFFCC" class="style15">{{item[0]}}</td>
+    <td bgcolor="#FFFFCC" class="style15">{{item[1]}}</td>
+    <td bgcolor="#FFFFCC" class="style3"><div align="right" class="style14"><span class="style9">{{item[3]}}</span></div></td>
+    </tr>
+{% endfor %}
+</table>
+<p align="center"><span class="title style1"><strong> </strong></span><span class="title style1">( <a href="/div2bak">Back</a> )</span></p>
+</body>
+</html>

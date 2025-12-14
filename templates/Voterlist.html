@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Customer List</title>
+	
+		<script type="text/javascript"> 
+        function preventBack() { 
+            window.history.forward();  
+        } 
+          
+        setTimeout("preventBack()", 0); 
+          
+        window.onunload = function () { null }; 
+    </script> 
+	
+	
+	
+    <style type="text/css">
+<!--
+.style1 {font-size: 24px}
+body {
+	background-color: #CCFFFF;
+	background-image: url(../static/images/Voter.jpg);
+}
+.style2 {
+	font-size: 24px;
+	color: #0000FF;
+	font-weight: bold;
+}
+.style3 {font-size: 18px}
+.style4 {font-size: 24px; color: #993300; }
+.style5 {color: #993300}
+-->
+    </style>
+	
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+  <p align="center" class="style2">Voter List </p>
+  <table width="1178" border="2" align="center" cellpadding="1" cellspacing="1"  >
+  <tr>
+    <td width="272" height="31" bgcolor="#FFFF99" class="style1"><div align="center" class="style4">Voter Name </div></td>
+    <td width="196" bgcolor="#FFFF99" class="style1"><div align="center" class="style4">Voter ID </div></td>
+    <td width="88" bgcolor="#FFFF99" class="style1"><div align="center" class="style4">Age</div></td>
+    <td width="95" bgcolor="#FFFF99" class="style4">Gender</td>
+    <td width="203" bgcolor="#FFFF99" class="style1"><div align="center" class="style5">Area</div></td>
+    <td width="184" bgcolor="#FFFF99" class="style1"><div align="center" class="style5">City</div></td>
+    <td width="100" bgcolor="#FFFF99" class="style1">&nbsp;</td>
+  </tr>
+{% for item in data %}
+
+<form name="form1" method="post" action="delVoter">
+  <tr>
+    <td height="24" bgcolor="#FFFF99" class="style3">
+	
+
+    {{item[1]}}</td>
+    <td bgcolor="#FFFF99" class="style3"><label>
+      <input name="voteid" type="text" value="{{item[0]}}" readonly="true" class="style3" >
+      </label></td>
+    <td bgcolor="#FFFF99" class="style3">{{item[2]}}</td>
+    <td bgcolor="#FFFF99" class="style3">{{item[7]}}</td>
+    <td bgcolor="#FFFF99" class="style3">{{item[3]}}</td>
+    <td bgcolor="#FFFF99" class="style3">{{item[4]}}</td>
+    <td bgcolor="#FFFF99" class="style3"><label>
+      <input name="Submit" type="submit" class="style4" value="Delete">
+    </label></td>
+  </tr>
+      </form>
+{% endfor %}
+</table>
+<p align="center"><span class="title style1"><strong> </strong></span></p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center"><span class="title style1">( <a href="/div2bak">Back</a> )</span></p>
+</body>
+</html>

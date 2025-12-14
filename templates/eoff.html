@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MFS100 Web Test</title>
+    <style type="text/css">
+        body {
+	font-family: 'Segoe UI';
+	background-color: #FFFFFF;
+	margin: 0px 5px 5px 5px;
+	padding: 0px 5px 5px 5px;
+	color: #555;
+	font-size: 12px;
+	background-image: url(../static/images/back2.jpg);
+	background-repeat: no-repeat;
+        }
+
+        .panel {
+            background-color: #FFFFFF;
+            -moz-user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            margin: 12px 12px;
+            padding: 6px 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            -moz-user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .btn-50 {
+            width: 50px;
+        }
+        .btn-100 {
+            width: 100px;
+        }
+
+        .btn-150 {
+            width: 150px;
+        }
+
+        .btn-200 {
+            width: 205px;
+        }
+
+        .btn-primary {
+            color: #FFF;
+            background-color: #428BCA;
+            border-color: #357EBD;
+        }
+
+            .btn-primary:hover {
+                color: #FFF;
+                background-color: #357EBD;
+                border-color: #428BCA;
+            }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 24px;
+            padding: 3px 6px;
+            font-size: 12px;
+            /*line-height: 1.42857;*/
+            color: #555;
+            background-color: #FFF;
+            background-image: none;
+            border: 1px solid #bdbdbd;
+            border-radius: 4px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+        }
+
+        textarea.form-control {
+            height: auto;
+        }
+
+        .text-bold {
+            font-weight: bold;
+        }
+
+        .img {
+            min-width: 125px;
+            min-height: 155px;
+            width: 125px;
+            height: 155px;
+            border: 1px solid #CCC;
+            border-radius: 4px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+            background-color: #FFFFFF;
+        }
+    .style1 {font-weight: bold; font-size: 18px; }
+.style7 {font-size: 22}
+.style11 {font-family: Georgia, "Times New Roman", Times, serif; font-size: 24px; color: #990000; }
+    .img1 {            min-width: 125px;
+            min-height: 155px;
+            width: 125px;
+            height: 155px;
+            border: 1px solid #CCC;
+            border-radius: 4px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+            background-color: #FFFFFF;
+}
+    .btn1 {            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            -moz-user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+}
+    .form-control1 {            display: block;
+            width: 100%;
+            height: 24px;
+            padding: 3px 6px;
+            font-size: 12px;
+            /*line-height: 1.42857;*/
+            color: #555;
+            background-color: #FFF;
+            background-image: none;
+            border: 1px solid #bdbdbd;
+            border-radius: 4px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+.panel1 {            background-color: #FFFFFF;
+            -moz-user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            margin: 12px 12px;
+            padding: 6px 12px;
+}
+    </style>
+
+	<script src="{{ url_for('static', filename='js/jquery-1.8.2.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/mfs100-9.0.2.6.js') }}"></script>
+    <script language="javascript" type="text/javascript">
+
+
+        var quality = 60; //(1 to 100) (recommanded minimum 55)
+        var timeout = 10; // seconds (minimum=10(recommanded), maximum=60, unlimited=0 )
+
+        function GetInfo() {
+            
+
+            var key = ""; //document.getElementById('txtKey').value;
+
+            var res;
+            if (key.length == 0) {
+                res = GetMFS100Info();
+            }
+            else {
+                res = GetMFS100KeyInfo(key);
+            }
+
+            if (res.httpStaus) {
+
+                document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
+
+                
+            }
+            else {
+                alert(res.err);
+            }
+            return false;
+        }
+
+        function Capture() {
+		
+		GetInfo();
+            try {
+
+
+                document.getElementById('txtStatus').value = "";
+                document.getElementById('imgFinger').src = "data:image/bmp;base64,";
+              //  document.getElementById('txtImageInfo').value = "";
+                document.getElementById('txtIsoTemplate').value = "";
+              //  document.getElementById('txtAnsiTemplate').value = "";
+              //  document.getElementById('txtIsoImage').value = "";
+              //  document.getElementById('txtRawData').value = "";
+              //  document.getElementById('txtWsqData').value = "";
+
+                var res = CaptureFinger(quality, timeout);
+                if (res.httpStaus) {
+
+                    document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
+
+                    if (res.data.ErrorCode == "0") {
+                        document.getElementById('imgFinger').src = "data:image/bmp;base64," + res.data.BitmapData;
+
+
+/*                        var imageinfo = "Quality: " + res.data.Quality + " Nfiq: " + res.data.Nfiq + " W(in): " + res.data.InWidth + " H(in): " + res.data.InHeight + " area(in): " + res.data.InArea + " Resolution: " + res.data.Resolution + " GrayScale: " + res.data.GrayScale + " Bpp: " + res.data.Bpp + " WSQCompressRatio: " + res.data.WSQCompressRatio + " WSQInfo: " + res.data.WSQInfo;
+                        document.getElementById('txtImageInfo').value = imageinfo;*/
+						
+                        document.getElementById('txtIsoTemplate').value = res.data.IsoTemplate;
+                                        document.getElementById('txtStatus').value = ""
+						/*document.getElementById('txtAnsiTemplate').value = res.data.AnsiTemplate;
+                        document.getElementById('txtIsoImage').value = res.data.IsoImage;
+                        document.getElementById('txtRawData').value = res.data.RawData;
+                        document.getElementById('txtWsqData').value = res.data.WsqImage;*/
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+
+        function Verify() {
+            try {
+                var isotemplate1 = document.getElementById('txtIsoTemplate1').value;
+                var isotemplate2 = document.getElementById('txtIsoTemplate').value;
+				
+                var res = VerifyFinger(isotemplate1, isotemplate2);
+
+                if (res.httpStaus) {
+                    if (res.data.Status) {
+                        alert("Finger matched");
+						window.location.assign("/div2Emenu");
+						
+						
+                    }
+                    else {
+                        if (res.data.ErrorCode != "0") {
+                            alert(res.data.ErrorDescription);
+                        }
+                        else {
+                            alert("Finger not matched");
+                        }
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+
+        }
+
+        function Match() {
+            try {
+                var isotemplate = document.getElementById('txtIsoTemplate').value;
+                var res = MatchFinger(quality, timeout, isotemplate);
+
+                if (res.httpStaus) {
+                    if (res.data.Status) {
+                        alert("Finger matched");
+                    }
+                    else {
+                        if (res.data.ErrorCode != "0") {
+                            alert(res.data.ErrorDescription);
+                        }
+                        else {
+                            alert("Finger not matched");
+                        }
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+
+        }
+
+        function GetPid() {
+            try {
+                var isoTemplateFMR = document.getElementById('txtIsoTemplate').value;
+                var isoImageFIR = document.getElementById('txtIsoImage').value;
+
+                var Biometrics = Array(); // You can add here multiple FMR value
+                Biometrics["0"] = new Biometric("FMR", isoTemplateFMR, "UNKNOWN", "", "");
+
+                var res = GetPidData(Biometrics);
+                if (res.httpStaus) {
+                    if (res.data.ErrorCode != "0") {
+                        alert(res.data.ErrorDescription);
+                    }
+                    else {
+                        document.getElementById('txtPid').value = res.data.PidData.Pid
+                        document.getElementById('txtSessionKey').value = res.data.PidData.Sessionkey
+                        document.getElementById('txtHmac').value = res.data.PidData.Hmac
+                        document.getElementById('txtCi').value = res.data.PidData.Ci
+                        document.getElementById('txtPidTs').value = res.data.PidData.PidTs
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+        function GetProtoPid() {
+            try {
+                var isoTemplateFMR = document.getElementById('txtIsoTemplate').value;
+                var isoImageFIR = document.getElementById('txtIsoImage').value;
+
+                var Biometrics = Array(); // You can add here multiple FMR value
+                Biometrics["0"] = new Biometric("FMR", isoTemplateFMR, "UNKNOWN", "", "");
+
+                var res = GetProtoPidData(Biometrics);
+                if (res.httpStaus) {
+                    if (res.data.ErrorCode != "0") {
+                        alert(res.data.ErrorDescription);
+                    }
+                    else {
+                        document.getElementById('txtPid').value = res.data.PidData.Pid
+                        document.getElementById('txtSessionKey').value = res.data.PidData.Sessionkey
+                        document.getElementById('txtHmac').value = res.data.PidData.Hmac
+                        document.getElementById('txtCi').value = res.data.PidData.Ci
+                        document.getElementById('txtPidTs').value = res.data.PidData.PidTs
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+        function GetRbd() {
+            try {
+                var isoTemplateFMR = document.getElementById('txtIsoTemplate').value;
+                var isoImageFIR = document.getElementById('txtIsoImage').value;
+
+                var Biometrics = Array();
+                Biometrics["0"] = new Biometric("FMR", isoTemplateFMR, "LEFT_INDEX", 2, 1);
+                Biometrics["1"] = new Biometric("FMR", isoTemplateFMR, "LEFT_MIDDLE", 2, 1);
+                // Here you can pass upto 10 different-different biometric object.
+
+
+                var res = GetRbdData(Biometrics);
+                if (res.httpStaus) {
+                    if (res.data.ErrorCode != "0") {
+                        alert(res.data.ErrorDescription);
+                    }
+                    else {
+                        document.getElementById('txtPid').value = res.data.RbdData.Rbd
+                        document.getElementById('txtSessionKey').value = res.data.RbdData.Sessionkey
+                        document.getElementById('txtHmac').value = res.data.RbdData.Hmac
+                        document.getElementById('txtCi').value = res.data.RbdData.Ci
+                        document.getElementById('txtPidTs').value = res.data.RbdData.RbdTs
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+
+        function GetProtoRbd() {
+            try {
+                var isoTemplateFMR = document.getElementById('txtIsoTemplate').value;
+                var isoImageFIR = document.getElementById('txtIsoImage').value;
+
+                var Biometrics = Array();
+                Biometrics["0"] = new Biometric("FMR", isoTemplateFMR, "LEFT_INDEX", 2, 1);
+                Biometrics["1"] = new Biometric("FMR", isoTemplateFMR, "LEFT_MIDDLE", 2, 1);
+                // Here you can pass upto 10 different-different biometric object.
+
+
+                var res = GetProtoRbdData(Biometrics);
+                if (res.httpStaus) {
+                    if (res.data.ErrorCode != "0") {
+                        alert(res.data.ErrorDescription);
+                    }
+                    else {
+                        document.getElementById('txtPid').value = res.data.RbdData.Rbd
+                        document.getElementById('txtSessionKey').value = res.data.RbdData.Sessionkey
+                        document.getElementById('txtHmac').value = res.data.RbdData.Hmac
+                        document.getElementById('txtCi').value = res.data.RbdData.Ci
+                        document.getElementById('txtPidTs').value = res.data.RbdData.RbdTs
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+    </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p align="right" class="style11">&nbsp;</p>
+    <form name="form1" method="post" action="searcheoff">
+      <span class="style11">Election Officer Login </span>
+      <table width="443" border="0" align="center">
+        <tr>
+          <td height="50" class="style11">Username</td>
+          <td class="style7">
+            <input name="username" type="text" class="style1" id="username" size="20" maxlength="20 "  pattern="[a-zA-Z0-9 ]+" required>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="122" height="50"><p class="style11">Password</p>          </td>
+          <td width="154" class="style7">
+            <input name="password" type="password" class="style1" id="password" size="20" maxlength="20"   pattern="[a-zA-Z0-9 ]+" required>
+          </td>
+          <td width="155"><label>
+            <input name="Submit" type="submit" class="style11" value="Search">
+          </label></td>
+        </tr>
+      </table>
+</form>
+      <table width="999" border="0" align="center">
+        <tr>
+          <td width="242"><span class="style1"> Finger Template1</span></td>
+          <td width="741"><textarea name="txtIsoTemplate1" class="form-control1" id="txtIsoTemplate1" style="width: 100%; height:50px;">{{code}} </textarea></td>
+        </tr>
+      </table>
+      <table width="440" height="204" border="0" align="center">
+        <tr>
+          <td width="247">&nbsp;</td>
+          <td width="177" rowspan="4"><span class="img1"><img alt="Finger Image" name="imgFinger" width="145px" height="188px" id="imgFinger" /></span></td>
+        </tr>
+        <tr>
+          <td><input name="submit" type="button" class="style11" id="btnCapture" onClick="return Capture()" value="Capture" /></td>
+        </tr>
+        <tr>
+          <td><span class="style1">Index Finger </span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="754" height="43" border="0" align="center">
+        <tr>
+          <td width="155" height="39"><label></label></td>
+          <td width="155">&nbsp;</td>
+          <td width="155"><div align="center">
+            <input name="Button" type="button" class="style11" id="Submit" value="Verify &amp; Login" onClick="return Verify()">
+          </div></td>
+          <td width="155">&nbsp;</td>
+          <td width="155" class="style11"><a href="/">Back </a></td>
+        </tr>
+      </table>
+      <div class="panel1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="220" class="style1"> Capture Status: </td>
+            <td><input name="text" type="text" class="form-control1" id="txtStatus" value="" />
+            </td>
+          </tr>
+          <!--<tr>
+                <td>
+                    NFIQ:
+                </td>
+                <td>
+                    <input type="text" value="" id="txtNFIQ" class="form-control" />
+                </td>
+            </tr>-->
+          <tr>
+            <td class="style1"> Finger Template </td>
+            <td><textarea name="txtIsoTemplate" class="form-control1" id="txtIsoTemplate" style="width: 100%; height:50px;"> </textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+</body>
+</html>
