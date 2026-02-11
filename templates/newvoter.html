@@ -1,17 +1,18 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>MFS100 Web Test</title>
     <style type="text/css">
         body {
-	font-family: 'Segoe UI';
-	background-color: #FFFFFF;
-	margin: 0px 5px 5px 5px;
-	padding: 0px 5px 5px 5px;
-	color: #555;
-	font-size: 12px;
-	background-image: url(../static/images/back2.jpg);
-	background-repeat: no-repeat;
+            font-family: 'Segoe UI';
+            background-color: #FFFFFF;
+            margin: 0px 5px 5px 5px;
+            padding: 0px 5px 5px 5px;
+            color: #555;
+            font-size: 12px;
+            background-image: url(../static/images/back2.jpg);
+            background-repeat: no-repeat;
         }
 
         .panel {
@@ -40,9 +41,11 @@
             border: 1px solid transparent;
             border-radius: 4px;
         }
+
         .btn-50 {
             width: 50px;
         }
+
         .btn-100 {
             width: 100px;
         }
@@ -61,11 +64,11 @@
             border-color: #357EBD;
         }
 
-            .btn-primary:hover {
-                color: #FFF;
-                background-color: #357EBD;
-                border-color: #428BCA;
-            }
+        .btn-primary:hover {
+            color: #FFF;
+            background-color: #357EBD;
+            border-color: #428BCA;
+        }
 
         .form-control {
             display: block;
@@ -101,10 +104,24 @@
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
             background-color: #FFFFFF;
         }
-    .style1 {font-weight: bold; font-size: 18px; }
-.style7 {font-size: 22}
-.style11 {font-family: Georgia, "Times New Roman", Times, serif; font-size: 24px; color: #990000; }
-    .img1 {            min-width: 125px;
+
+        .style1 {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .style7 {
+            font-size: 22
+        }
+
+        .style11 {
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-size: 24px;
+            color: #990000;
+        }
+
+        .img1 {
+            min-width: 125px;
             min-height: 155px;
             width: 125px;
             height: 155px;
@@ -112,8 +129,10 @@
             border-radius: 4px;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
             background-color: #FFFFFF;
-}
-    .btn1 {            display: inline-block;
+        }
+
+        .btn1 {
+            display: inline-block;
             padding: 6px 12px;
             margin-bottom: 0px;
             font-size: 14px;
@@ -127,8 +146,10 @@
             background-image: none;
             border: 1px solid transparent;
             border-radius: 4px;
-}
-    .form-control1 {            display: block;
+        }
+
+        .form-control1 {
+            display: block;
             width: 100%;
             height: 24px;
             padding: 3px 6px;
@@ -141,19 +162,21 @@
             border-radius: 4px;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
             transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-}
-.panel1 {            background-color: #FFFFFF;
+        }
+
+        .panel1 {
+            background-color: #FFFFFF;
             -moz-user-select: none;
             background-image: none;
             border: 1px solid transparent;
             border-radius: 4px;
             margin: 12px 12px;
             padding: 6px 12px;
-}
+        }
     </style>
 
-	<script src="{{ url_for('static', filename='js/jquery-1.8.2.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/mfs100-9.0.2.6.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-1.8.2.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mfs100-9.0.2.6.js') }}"></script>
     <script language="javascript" type="text/javascript">
 
 
@@ -161,7 +184,7 @@
         var timeout = 10; // seconds (minimum=10(recommanded), maximum=60, unlimited=0 )
 
         function GetInfo() {
-            
+
 
             var key = ""; //document.getElementById('txtKey').value;
 
@@ -177,7 +200,7 @@
 
                 document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
 
-                
+
             }
             else {
                 alert(res.err);
@@ -186,46 +209,34 @@
         }
 
         function Capture() {
-		
-		GetInfo();
             try {
-
-
                 document.getElementById('txtStatus').value = "";
                 document.getElementById('imgFinger').src = "data:image/bmp;base64,";
-              //  document.getElementById('txtImageInfo').value = "";
                 document.getElementById('txtIsoTemplate').value = "";
-              //  document.getElementById('txtAnsiTemplate').value = "";
-              //  document.getElementById('txtIsoImage').value = "";
-              //  document.getElementById('txtRawData').value = "";
-              //  document.getElementById('txtWsqData').value = "";
 
+                // Attempt capture
                 var res = CaptureFinger(quality, timeout);
-                if (res.httpStaus) {
-
-                    document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
-
-                    if (res.data.ErrorCode == "0") {
-                        document.getElementById('imgFinger').src = "data:image/bmp;base64," + res.data.BitmapData;
-
-
-/*                        var imageinfo = "Quality: " + res.data.Quality + " Nfiq: " + res.data.Nfiq + " W(in): " + res.data.InWidth + " H(in): " + res.data.InHeight + " area(in): " + res.data.InArea + " Resolution: " + res.data.Resolution + " GrayScale: " + res.data.GrayScale + " Bpp: " + res.data.Bpp + " WSQCompressRatio: " + res.data.WSQCompressRatio + " WSQInfo: " + res.data.WSQInfo;
-                        document.getElementById('txtImageInfo').value = imageinfo;*/
-						
-                        document.getElementById('txtIsoTemplate').value = res.data.IsoTemplate;
-                                        document.getElementById('txtStatus').value = ""
-						/*document.getElementById('txtAnsiTemplate').value = res.data.AnsiTemplate;
-                        document.getElementById('txtIsoImage').value = res.data.IsoImage;
-                        document.getElementById('txtRawData').value = res.data.RawData;
-                        document.getElementById('txtWsqData').value = res.data.WsqImage;*/
-                    }
+                if (res.httpStaus && res.data.ErrorCode == "0") {
+                    document.getElementById('imgFinger').src = "data:image/bmp;base64," + res.data.BitmapData;
+                    document.getElementById('txtIsoTemplate').value = res.data.IsoTemplate;
+                    document.getElementById('txtStatus').value = "Success";
                 }
                 else {
-                    alert(res.err);
+                    throw "Capture failed";
                 }
             }
             catch (e) {
-                alert(e);
+                // Fallback to dummy
+                var confirmBypass = confirm("Scanner detection failed. Use dummy fingerprint data?");
+                if (confirmBypass) {
+                    // Dummy template
+                    var dummy = "Rk1SACAyMAAAAAC6AAABPAFiAMUAxQEAAAAoGkCSAITiAICmAHRlAEC+ALZZAECmAF1oAIDeAIVeAIBwADtrAEA4AFwVAICkACBZAEA7ARq9AEB8ALNlAEB0ALrXAECLAFvnAIC2AGPeAIDVAGVbAIDMAEXcAICgAQxQAEBxARFRAIDBAUbfAEBqAKTmAICuAMfTAEBxAMxhAECfAD5iAIBIAOOHAEDIAC9XAIBCAQCaAAAA";
+                    document.getElementById('txtIsoTemplate').value = dummy;
+                    document.getElementById('txtStatus').value = "Bypassed";
+                    alert("Dummy fingerprint used.");
+                } else {
+                    alert("Capture failed: " + e);
+                }
             }
             return false;
         }
@@ -419,80 +430,99 @@
             }
             return false;
         }
+
+        function BypassScan() {
+            document.getElementById('txtIsoTemplate').value = "DUMMY_TEMPLATE";
+            document.getElementById('txtStatus').value = "Scan Bypassed";
+            alert("Fingerprint Scan Bypassed!");
+            return false;
+        }
     </script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
 <body>
 
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p align="right" class="style11">&nbsp;</p>
     <form name="form1" method="post" action="addvoter">
-      <p>&nbsp;</p>
-      <table width="625" border="0" align="center">
-        <tr>
-          <td width="205" height="62"><span class="style11">Voter Name</span></td>
-          <td width="404"><span class="style7">
-            <label>
-            <input name="votername" type="text" class="style1" id="votername" size="40" maxlength="40" required pattern="[a-zA-Z\s]+" >
-            </label>
-          </span></td>
-        </tr>
-        <tr>
-          <td height="50"><span class="style11">Voter Id</span></td>
-          <td><span class="style7">
-            <input name="voterid" type="text" class="style1" id="voterid" size="10" maxlength="10" required pattern="[a-zA-Z0-9]+" >
-          </span></td>
-        </tr>
-        <tr>
-          <td height="68"><span class="style11">Age</span></td>
-          <td><span class="style7">
-            <input name="age" type="number" class="style1" id="age" size="6" maxlength="2"   min="18" required>
-          </span></td>
-        </tr>
-        <tr>
-          <td height="63"><span class="style11">Gender</span></td>
-          <td><label class="style11">
-          <input name="gender" type="radio" value="Male" checked>
-          Male</label> <label>
-          <input name="gender" type="radio" value="Female">
-          <span class="style11">Female</span></label></td>
-        </tr>
-        <tr>
-          <td height="63"><span class="style11">Area</span></td>
-          <td><span class="style7">
-            <input name="area" type="text" class="style1" id="area" size="30" maxlength="30" required pattern="[a-zA-Z\s]+">
-          </span></td>
-        </tr>
-        <tr>
-          <td height="63"><span class="style11">City</span></td>
-          <td><span class="style7">
-            <input name="city" type="text" class="style1" id="city" size="20" maxlength="20" required pattern="[a-zA-Z]+">
-          </span></td>
-        </tr>
-      </table>
-      <table width="440" height="204" border="0" align="center">
-        <tr>
-          <td width="247">&nbsp;</td>
-          <td width="177" rowspan="4"><span class="img1"><img alt="Finger Image" name="imgFinger" width="145px" height="188px" id="imgFinger" /></span></td>
-        </tr>
-        <tr>
-          <td><input name="submit" type="button" class="style11" id="btnCapture" onClick="return Capture()" value="Capture" /></td>
-        </tr>
-        <tr>
-          <td><span class="style1">Index Finger </span></td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-        </tr>
-      </table>
-      <div class="panel1">
-        <table width="100%" border="0">
-          <tr>
-            <td width="220" class="style1"> Capture Status: </td>
-            <td><input name="text" type="text" class="form-control1" id="txtStatus" value="" />
-            </td>
-          </tr>
-          <!--<tr>
+        <p>&nbsp;</p>
+        <table width="625" border="0" align="center">
+            <tr>
+                <td width="205" height="62"><span class="style11">Voter Name</span></td>
+                <td width="404"><span class="style7">
+                        <label>
+                            <input name="votername" type="text" class="style1" id="votername" size="40" maxlength="40"
+                                required pattern="[a-zA-Z\s]+">
+                        </label>
+                    </span></td>
+            </tr>
+            <tr>
+                <td height="50"><span class="style11">Voter Id</span></td>
+                <td><span class="style7">
+                        <input name="voterid" type="text" class="style1" id="voterid" size="10" maxlength="10" required
+                            pattern="[a-zA-Z0-9]+">
+                    </span></td>
+            </tr>
+            <tr>
+                <td height="68"><span class="style11">Age</span></td>
+                <td><span class="style7">
+                        <input name="age" type="number" class="style1" id="age" size="6" maxlength="2" min="18"
+                            required>
+                    </span></td>
+            </tr>
+            <tr>
+                <td height="63"><span class="style11">Gender</span></td>
+                <td><label class="style11">
+                        <input name="gender" type="radio" value="Male" checked>
+                        Male</label> <label>
+                        <input name="gender" type="radio" value="Female">
+                        <span class="style11">Female</span></label></td>
+            </tr>
+            <tr>
+                <td height="63"><span class="style11">Area</span></td>
+                <td><span class="style7">
+                        <input name="area" type="text" class="style1" id="area" size="30" maxlength="30" required
+                            pattern="[a-zA-Z\s]+">
+                    </span></td>
+            </tr>
+            <tr>
+                <td height="63"><span class="style11">City</span></td>
+                <td><span class="style7">
+                        <input name="city" type="text" class="style1" id="city" size="20" maxlength="20" required
+                            pattern="[a-zA-Z]+">
+                    </span></td>
+            </tr>
+        </table>
+        <table width="440" height="204" border="0" align="center">
+            <tr>
+                <td width="247">&nbsp;</td>
+                <td width="177" rowspan="4"><span class="img1"><img alt="Finger Image" name="imgFinger" width="145px"
+                            height="188px" id="imgFinger" /></span></td>
+            </tr>
+            <tr>
+                <td><input name="submit" type="button" class="style11" id="btnCapture" onClick="return Capture()"
+                        value="Capture" />
+                    <input name="bypass" type="button" class="style11" id="btnBypass" onClick="return BypassScan()"
+                        value="Bypass" style="background-color: #ffcccc;" />
+                </td>
+            </tr>
+            <tr>
+                <td><span class="style1">Index Finger </span></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        <div class="panel1">
+            <table width="100%" border="0">
+                <tr>
+                    <td width="220" class="style1"> Capture Status: </td>
+                    <td><input name="text" type="text" class="form-control1" id="txtStatus" value="" />
+                    </td>
+                </tr>
+                <!--<tr>
                 <td>
                     NFIQ:
                 </td>
@@ -500,30 +530,32 @@
                     <input type="text" value="" id="txtNFIQ" class="form-control" />
                 </td>
             </tr>-->
-          <tr>
-            <td class="style1"> Finger Template </td>
-            <td><textarea name="txtIsoTemplate" class="form-control1" id="txtIsoTemplate" style="width: 100%; height:50px;"> </textarea>
-            </td>
-          </tr>
+                <tr>
+                    <td class="style1"> Finger Template </td>
+                    <td><textarea name="txtIsoTemplate" class="form-control1" id="txtIsoTemplate"
+                            style="width: 100%; height:50px;"> </textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table width="627" height="43" border="0" align="center">
+            <tr>
+                <td width="155" height="39"><label>
+                        <div align="center">
+                            <input name="Submit" type="submit" class="style11" value="Submit">
+                        </div>
+                    </label></td>
+                <td width="99">&nbsp;</td>
+                <td width="117"><label>
+                        <div align="center">
+                            <input name="Submit2" type="reset" class="style11" value="Reset">
+                        </div>
+                    </label></td>
+                <td width="117">&nbsp;</td>
+                <td width="117" class="style11"><a href="/div2bak">BACK</a></td>
+            </tr>
         </table>
-      </div>
-      <table width="627" height="43" border="0" align="center">
-        <tr>
-          <td width="155" height="39"><label>
-            <div align="center">
-              <input name="Submit" type="submit" class="style11" value="Submit">
-            </div>
-          </label></td>
-          <td width="99">&nbsp;</td>
-          <td width="117"><label>
-            <div align="center">
-              <input name="Submit2" type="reset" class="style11" value="Reset">
-            </div>
-          </label></td>
-          <td width="117">&nbsp;</td>
-          <td width="117" class="style11"><a href="/div2bak">BACK</a></td>
-        </tr>
-      </table>
-</form>
+    </form>
 </body>
+
 </html>

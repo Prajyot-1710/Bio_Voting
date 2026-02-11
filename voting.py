@@ -137,15 +137,15 @@ def  addvoter():
 
         print(len(txtIsoTemplate))
 
-        if len(txtIsoTemplate)==1:
-
-            report="Finger Not Scanned , Scan and Try again"
-            root = tk.Tk()
-            root.withdraw()
-            root.call('wm', 'attributes', '.', '-topmost', True)
-            messagebox.showinfo("Info", report) 
-            root.destroy()            
-            return  render_template('newvoter.html')
+        # if len(txtIsoTemplate)==1:
+        #
+        #     report="Finger Not Scanned , Scan and Try again"
+        #     root = tk.Tk()
+        #     root.withdraw()
+        #     root.call('wm', 'attributes', '.', '-topmost', True)
+        #     messagebox.showinfo("Info", report) 
+        #     root.destroy()            
+        #     return  render_template('newvoter.html')
         
 
         records = [(voterid,votername, age,area,city,txtIsoTemplate,"NV",gender)]
